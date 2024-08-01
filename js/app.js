@@ -26,9 +26,19 @@ function obtenernaves(){
     }
 }
 
+function obtenerpeliculas(){
+    try{
+        fetch(URLBase + endPointPeliculas)
+        .then(response=>response.json())
+        .then(data => createCards(data.results))
+    }catch(error){
+        console.log("error la obtener informacion sobre las peliculas")
+    }
+}
 
 
-// function createCards(personajes, naves){
+
+// function createCards(personajes, naves, peliculas){
 //     containercard.innerHTML = ""
 //     for (let personaje)
 // }
