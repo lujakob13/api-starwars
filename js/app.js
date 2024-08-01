@@ -3,14 +3,15 @@ const endPointPersonajes = "/people/"
 const endPointNaves= "/starships/"
 const endPointPeliculas = "/films/"
 
-let containercard = document.querySelector("#container-card")
+let containercardPersonajes = document.querySelector("#container-card-personajes")
 let siguiente = document.querySelector("#siguiente")
+let pagina = 1
 
 function obtenerpersonajes(){
     try{
-        fetch(URLBase + endPointPersonajes)
+        fetch(`${URLBase}${endPointPersonajes}?page=${pagina}`)
         .then(response => response.json())
-        .then(data => createCards(data.results))
+        .then(data => createCardsOfCharacter(data.results))
     }catch(error){
         console.log("error la obtener informacion sobre personajes")
     }
@@ -38,17 +39,23 @@ function obtenerpeliculas(){
 
 
 
-function createCards(personajes, naves, peliculas){
-    containercard.innerHTML = ""
+function createCardsOfCharacter(personajes){
+    containercardPersonajes.innerHTML = ""
     for (let personaje of personajes){
         const{name, gender, species} = personaje
-    }
-    for (let nave of naves){
-        const{name, model, starship_class} = nave
-    }
-    for (let pelicula of peliculas){
-        const{title, episode_id, director} = peliculas
+        containercardPersonajes.innerHTML += `
+        <div class="card" style="width: 18rem;">
+            <img src="" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p class="card-text">${name} - ${gender}</p>
+            </div>
+        </div>`;
     }
 }
+
+siguiente.addEventListener("click", function pag(){
+    pagina += 1
+    obtenerpersonajes()
+})
 
 
