@@ -4,6 +4,7 @@ const endPointNaves= "/starships/"
 const endPointPeliculas = "/films/"
 
 let containercardPersonajes = document.querySelector("#container-card-personajes")
+let containercardNaves = document.querySelector("#container-card-naves")
 let siguiente = document.querySelector("#siguiente")
 let pagina = 1
 
@@ -19,9 +20,9 @@ function obtenerpersonajes(){
 
 function obtenernaves(){
     try{
-        fetch(URLBase + endPointNaves)
+        fetch(`${URLBase}${endPointNaves}?page=${pagina}`)
         .then(response => response.json())
-        .then(data => createCards(data.results))
+        .then(data => createCardsOfShips(data.results))
     }catch(error){
         console.log("error al obtener informacion sobre las naves")
     }
@@ -52,9 +53,9 @@ function traduccion(gender) {
 }
 
 function createCardsOfCharacter(personajes) {
-    containercardPersonajes.innerHTML = "";
+    containercardPersonajes.innerHTML = ""
     for (let personaje of personajes) {
-        const { name, gender, height } = personaje;
+        const {name, gender, height } = personaje
         containercardPersonajes.innerHTML += `
         <div class="card" style="width: 18rem;">
             <div class="card-body">
@@ -63,11 +64,25 @@ function createCardsOfCharacter(personajes) {
         </div>`;
     }
 }
+function createCardsOfShips(naves) {
+    containercardNaves.innerHTML = ""  // Limpiar el contenido previo
+    for (let nave of naves) {
+        const {name, model, starship_class, cargo_capacity} = nave
+        containercardNaves.innerHTML += `
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <p class="card-text">Nombre: ${name} - Modelo: ${model} - clase: ${starship_class} - capacidad: ${cargo_capacity}</p>
+            </div>
+        </div>`
+    }
+}
+
 
 
 siguiente.addEventListener("click", function pag(){
     pagina += 1
     obtenerpersonajes()
+    obtenernaves()
 })
 
 
