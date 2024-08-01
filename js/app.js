@@ -37,21 +37,33 @@ function obtenerpeliculas(){
     }
 }
 
+function traduccion(gender) {
+    let traducir = ""
+    if (gender === "female") {
+        traducir = "mujer"
+    } else if (gender === "male") {
+        traducir = "hombre"
+    } else if (gender === "n/a") {
+        traducir = "no aplica"
+    } else {
+        traducir = "desconocido"
+    }
+    return traducir
+}
 
-
-function createCardsOfCharacter(personajes){
-    containercardPersonajes.innerHTML = ""
-    for (let personaje of personajes){
-        const{name, gender, species} = personaje
+function createCardsOfCharacter(personajes) {
+    containercardPersonajes.innerHTML = "";
+    for (let personaje of personajes) {
+        const { name, gender, height } = personaje;
         containercardPersonajes.innerHTML += `
         <div class="card" style="width: 18rem;">
-            <img src="" class="card-img-top" alt="...">
             <div class="card-body">
-                <p class="card-text">${name} - ${gender}</p>
+                <p class="card-text">Nombre: ${name} - Género: ${traduccion(gender)} - Altura: ${height}cm</p>
             </div>
         </div>`;
     }
 }
+
 
 siguiente.addEventListener("click", function pag(){
     pagina += 1
