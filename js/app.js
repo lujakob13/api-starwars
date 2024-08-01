@@ -38,9 +38,17 @@ function obtenerpeliculas(){
 
 
 
-// function createCards(personajes, naves, peliculas){
-//     containercard.innerHTML = ""
-//     for (let personaje)
-// }
+function createCards(personajes, naves, peliculas){
+    containercard.innerHTML = ""
+    for (let personaje of personajes){
+        const{name, gender, species} = personaje
+    }
+    for (let nave of naves){
+        const{name, model, starship_class} = nave
+    }
+    for (let pelicula of peliculas){
+        const{title, episode_id, director} = peliculas
+    }
+}
 
 
